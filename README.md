@@ -56,6 +56,12 @@
 ```sql
 CREATE DATABASE jeju_guide DEFAULT CHARACTER SET utf8mb4;
 
+2. 설정 파일 수정
+src/main/resources/application.properties에서 DB 계정 정보 수정
+
+3. 실행
 ./gradlew bootRun
 
+4. 접속
 http://localhost:7080
+
