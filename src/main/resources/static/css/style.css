@@ -1,0 +1,417 @@
+/* =========================
+   Theme & Base
+========================= */
+:root { --brand: #0f172a; }
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Noto Sans KR', sans-serif; }
+.navbar-brand { letter-spacing: .3px; }
+
+/* =========================
+   Hero
+========================= */
+.hero {
+  position: relative;
+  height: 56vh;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+}
+.hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.35);
+}
+.hero .content { position: relative; z-index: 1; }
+
+@media (max-width: 576px) {
+  .hero { height: 46vh; }
+}
+
+/* =========================
+   Common UI
+========================= */
+.section-title { font-weight: 700; }
+
+/* 부드러운 배지(관광지/미식 카테고리 라벨 등) */
+.badge-soft {
+  background: #f2f4f7;
+  color: #555;
+  font-size: .9rem;
+  border: 1px solid #e2e8f0;
+  backdrop-filter: blur(6px);
+}
+
+/* 카드 공통 모양(둥근 모서리/오버플로우만) */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* 카드 이미지 기본 유틸 (기존 템플릿 호환용) */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* 별점 텍스트 */
+.star {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #f39c12;
+  font-weight: bold;
+}
+
+/* 다크 섹션(푸터 등) */
+.footer-dark { background: var(--brand); color: #e5e7eb; }
+
+/* =========================
+   Card Interaction (統一)
+   - 호버 시 카드 살짝 상승
+   - 이미지만 부드럽게 확대
+========================= */
+.hover-card {
+  transition: transform .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+}
+
+/* 이미지 래퍼(섹션별 높이는 필요 시 조절) */
+.thumb {
+  height: 240px;           /* 인기 관광지 / 제주도 미식 공통 높이 */
+  overflow: hidden;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform .6s ease;
+}
+.hover-card:hover .thumb img {
+  transform: scale(1.06);
+}
+
+.food-tags {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  gap: 10px; /* 태그 간격 */
+  margin-top: 20px; /* 위와 간격 */
+}
+
+/* === Hover helpers === */
+/* 박스만 살짝 떠오르는 효과(이미지 없는 카드용) */
+.hover-lift {
+  transition: transform .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+}
+
+/* 이미지가 있는 카드에서 이미지 확대만 별도로 제어하고 싶을 때 */
+.card.hover-zoom .card-img-top {
+  transform: scale(1);
+  transition: transform .6s ease;
+}
+.card.hover-zoom:hover .card-img-top {
+  transform: scale(1.06);
+}
+
+/* ===== 로그인 페이지 ===== */
+body.login-bg {
+  background: linear-gradient(135deg, #f0f6ff, #fffaf3);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  text-align: center;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px;
+  width: 380px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.login-box h2 {
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-login:hover {
+  background: #222;
+}
+
+.test-accounts {
+  background: #f7f8fa;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+
+/* ===== 로그인 헤더 영역 ===== */
+.login-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.login-nav a {
+  color: #444;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.login-nav a:hover {
+  color: #111;
+}
+
+.login-title {
+  text-align: center;
+  color: #222;
+}
+
+.login-title i {
+  font-size: 20px;
+  margin-bottom: 4px;
+  color: #111;
+}
+
+.login-title h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.login-title p {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+}
+
+/* ===== 전체 레이아웃 수정 및 래퍼 ===== */
+body.login-bg {
+  background: linear-gradient(135deg, #f5f7fa, #eef2f7);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0; /* 화면이 작을 때 위아래 여백 */
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 400px; /* 전체 너비 제한 */
+}
+
+
+/* ===== 로그인 헤더 영역 재정렬 ===== */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px; /* 로그인 박스와의 간격 */
+}
+
+.login-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px; /* 타이틀과의 간격 */
+}
+
+
+/* ===== 로그인 박스 내부 (추가된 요소 스타일) ===== */
+.login-box {
+  background: #fff;
+  border-radius: 16px; /* 좀 더 부드러운 곡선 */
+  padding: 32px;
+  width: 100%; /* 래퍼가 너비를 제어 */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+}
+
+/* 환영 메시지 */
+.login-welcome {
+  text-align: left;
+  margin-bottom: 24px;
+}
+.login-welcome h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 4px 0;
+}
+.login-welcome p {
+  color: #718096;
+  margin: 0;
+  font-size: 15px;
+}
+
+/* 로그인/회원가입 탭 */
+.login-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+.login-tabs a {
+  text-decoration: none;
+  color: #4a5568;
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+.login-tabs a.active {
+  background: #fff;
+  color: #1a202c;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== 기존 폼 요소 미세 조정 ===== */
+.form-group {
+  margin-bottom: 20px; /* 여백 조정 */
+}
+.form-group label {
+  font-size: 14px;
+  font-weight: 600; /* 약간 굵게 */
+  color: #2d3748;
+  display: block; /* 인풋과 분리 */
+  margin-bottom: 8px;
+}
+.form-group input {
+  font-size: 15px;
+  border-color: #e2e8f0;
+  box-shadow: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.btn-login {
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.test-accounts {
+  margin-top: 24px;
+  text-align: left;
+  color: #4a5568;
+  line-height: 1.6;
+}
+.test-accounts p:first-child {
+  display: none; /* "테스트 계정:" 텍스트 숨김 */
+}
+
+/* === Jeju Guide: navbar tweaks === */
+.navbar .nav-link { padding: .5rem .5rem; }
+.navbar .nav-link .bi { font-size: 1rem; }
+.navbar .btn.rounded-pill { border-radius: 9999px; }
+/* End navbar tweaks */
+
+/* === segmented toggle (공용) === */
+.seg-toggle{
+  display:inline-flex;
+  gap:6px;
+  padding:6px;
+  border-radius:9999px;
+  background:#f1f3f5;
+}
+.seg-toggle a{
+  display:inline-block;
+  padding:8px 18px;
+  border-radius:9999px;
+  text-decoration:none;
+  color:#333;
+  font-weight:600;
+  line-height:1;
+}
+.seg-toggle a.active{
+  background:#0b0b12;
+  color:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.seg-toggle a:focus-visible{
+  outline:2px solid rgba(0,0,0,.2);
+  outline-offset:2px;
+}
+/* === end segmented toggle === */
+
+.avatar-pill{
+  width:22px;height:22px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:12px;background:#eee;color:#444;
+}
+
+
+
+

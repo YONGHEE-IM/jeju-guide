@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>게시글 작성</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <script defer th:src="@{/js/board.js}"></script>
+</head>
+<body>
+<div class="container">
+  <a class="page-back" th:href="@{/boards}">← 돌아가기</a>
+
+  <div class="form-card" style="margin-top:12px;">
+    <h2 class="post-title">게시글 작성</h2>
+    <p class="page-sub">제주도 여행에 대한 경험과 정보를 공유해보세요</p>
+
+    <form th:action="@{/boards}" method="post" th:object="${form}">
+      <!-- 🔸 CSRF -->
+      <input type="hidden" th:if="${_csrf != null}"
+             th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+      <!-- 제목 -->
+      <div class="field">
+        <label class="label" for="title">제목</label>
+        <input class="input" id="title" type="text" th:field="*{title}"
+               placeholder="제목을 입력하세요" data-min="2" data-count-target="#titleCount">
+        <div class="hint"><span id="titleCount">0</span>자 / 최소 2자</div>
+        <div class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">제목 에러</div>
+      </div>
+
+      <!-- 내용 -->
+      <div class="field">
+        <label class="label" for="content">내용</label>
+        <textarea class="textarea" id="content" th:field="*{content}"
+                  placeholder="내용을 입력하세요" rows="8"
+                  data-min="10" data-count-target="#contentCount"></textarea>
+        <div class="hint"><span id="contentCount">0</span>자 / 최소 10자</div>
+        <div class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">내용 에러</div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" type="submit">작성하기</button>
+        <a class="btn btn-ghost" th:href="@{/boards}">취소</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title th:text="${siteTitle}">제주도 가이드</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">제주도 가이드</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto gap-lg-3 align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" href="/"><i class="bi bi-house-door"></i> 홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" th:href="@{/spots}"><i class="bi bi-geo-alt"></i> 관광지</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1"  th:href="@{/foods}"><i class="bi bi-cup-hot"></i> 맛집</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" th:href="@{/boards}"><i class="bi bi-chat-square-text"></i> 자유게시판</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" th:href="@{/ai/plan}"><i class="bi bi-stars"></i> AI 일정</a>
+        </li>
+        <li class="nav-item"
+		    th:if="${#authentication?.name == 'admin@naver.com'}">
+		  <a class="nav-link" href="/admin">관리자 페이지</a>
+		</li>
+
+        <!-- 인증 상태별 오른쪽 영역 -->
+        <!-- 로그인 상태 -->
+        <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+          <li class="nav-item dropdown">
+            <a class="btn btn-light rounded-pill dropdown-toggle d-flex align-items-center gap-2"
+               href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="avatar-pill"
+                    th:text="${#strings.isEmpty(#authentication.name) ? 'U' : #authentication.name.substring(0,1).toUpperCase()}">U</span>
+              <span th:text="${#strings.isEmpty(#authentication.name) ? 'user' : #authentication.name}">user</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userMenu">
+              <li><a class="dropdown-item" th:href="@{/account/me}">내 계정</a></li>                   
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form th:action="@{/logout}" method="post" class="px-3 m-0">
+                  <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                  <button type="submit" class="dropdown-item text-danger px-0">로그아웃</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        </th:block>
+
+        <!-- 비로그인 상태 -->
+        <li class="nav-item" th:if="${#authorization.expression('isAnonymous()')}">
+          <a class="btn btn-dark rounded-pill px-3" th:href="@{/login}">로그인</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" style="background-image:url('/images/jeju-hero.jpg');">
+  <div class="content container text-center">
+    <div class="small text-white-50 mb-2">📍 대한민국</div>
+    <h1 class="display-5 fw-bold text-white">제주도 여행 가이드</h1>
+    <p class="lead mt-3 text-white-50">한라산의 웅장함부터 에메랄드빛 바다까지, 제주도의 아름다움을 경험하세요</p>
+  </div>
+</header>
+
+<!-- 인기 관광지 -->
+<section id="spots" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title">제주도 대표 인기 관광지</h2>
+      <p class="text-muted">제주도에서 꼭 방문해야 할 아름다운 명소들을 소개합니다</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <!-- 성산일출봉 -->
+     <div class="col-12 col-sm-6 col-lg-3">
+	  <a class="text-decoration-none text-reset d-block"
+	     th:href="@{/spots(title='성산일출봉')}">
+	    <div class="card h-100 rounded-4 shadow-sm overflow-hidden position-relative hover-card hover-zoom">
+	      <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">산</span>
+	      <img class="card-img-top" src="/images/seongsan.jpg" alt="성산일출봉">
+	      <div class="card-body">
+	        <div class="fw-semibold">성산일출봉</div>
+	        <div class="small text-muted mb-2">📍 서귀포시</div>
+	        <div class="text-muted small">유네스코 세계자연유산으로 지정된 화산 분화구. 일출이 특히 아름답습니다.</div>
+	      </div>
+	    </div>
+	  </a>
+	</div>
+
+
+      <!-- 한라산 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+		  <a class="text-decoration-none text-reset d-block"
+		     th:href="@{/spots(title='한라산 국립공원')}">
+		    <div class="card h-100 rounded-4 shadow-sm overflow-hidden position-relative hover-card hover-zoom">
+		      <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">산</span>
+		      <img class="card-img-top" src="/images/hallasan.jpg" alt="한라산 국립공원">
+		      <div class="card-body">
+		        <div class="fw-semibold">한라산 국립공원</div>
+		        <div class="small text-muted mb-2">📍 제주시</div>
+		        <div class="text-muted small">다양한 등산 코스와 아름다운 자연경관을 자랑합니다.</div>
+		      </div>
+		    </div>
+		  </a>
+		</div>
+
+
+      <!-- 천지연폭포 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+		  <a class="text-decoration-none text-reset d-block"
+		     th:href="@{/spots(title='천지연 폭포')}">
+		    <div class="card h-100 rounded-4 shadow-sm overflow-hidden position-relative hover-card hover-zoom">
+		      <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">폭포</span>
+		      <img class="card-img-top" src="/images/waterfall.jpg" alt="천지연폭포">
+		      <div class="card-body">
+		        <div class="fw-semibold">천지연폭포</div>
+		        <div class="small text-muted mb-2">📍 서귀포시</div>
+		        <div class="text-muted small">밤에는 조명이 켜져 환상적인 분위기를 연출합니다.</div>
+		      </div>
+		    </div>
+		  </a>
+		</div>
+
+
+      <!-- 주상절리대 -->
+      <div class="col-12 col-sm-6 col-lg-3">
+		  <a class="text-decoration-none text-reset d-block"
+		     th:href="@{/spots(title='주상절리대')}">
+		    <div class="card h-100 rounded-4 shadow-sm overflow-hidden position-relative hover-card hover-zoom">
+		      <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">해안</span>
+		      <img class="card-img-top" src="/images/coast.jpg" alt="주상절리대">
+		      <div class="card-body">
+		        <div class="fw-semibold">주상절리대</div>
+		        <div class="small text-muted mb-2">📍 서귀포시 중문동</div>
+		        <div class="text-muted small">두꺼운 용암이 급격히 식으면서 만들어낸 멋진 해안 경관.</div>
+		      </div>
+		    </div>
+		  </a>
+		</div>
+
+</section>
+
+<!-- 추천 액티비티 -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title">추천 액티비티</h2>
+      <p class="text-muted">제주도에서 꼭 경험해야 할 특별한 활동들을 소개합니다</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 shadow-sm hover-lift">
+          <div class="fs-3 mb-2">🌊</div>
+          <div class="fw-semibold">해양 스포츠</div>
+          <div class="text-muted small">스쿠버다이빙, 서핑, 카약 등</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 shadow-sm hover-lift">
+          <div class="fs-3 mb-2">⛰️</div>
+          <div class="fw-semibold">한라산 등반</div>
+          <div class="text-muted small">정상을 정복해보세요</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 shadow-sm hover-lift">
+          <div class="fs-3 mb-2">📸</div>
+          <div class="fw-semibold">사진 촬영</div>
+          <div class="text-muted small">숨막히는 풍경을 담기</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 shadow-sm hover-lift">
+          <div class="fs-3 mb-2">🍜</div>
+          <div class="fw-semibold">미식 투어</div>
+          <div class="text-muted small">흑돼지/전복/갈치/고기국수</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 제주도 미식 -->
+<section id="foods" class="py-5">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title">제주도 대표 음식</h2>
+      <p class="text-muted">제주의 청정 자연에서 자란 신선한 재료로 만든 특별한 음식들을 만나보세요</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- 제주 흑돼지 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <a class="text-decoration-none text-reset d-block"
+           th:href="@{/foods(cat='흑돼지')}">
+          <div class="card rounded-4 shadow-sm overflow-hidden hover-card h-100">
+            <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">고기</span>
+            <img class="card-img-top" src="/images/blackpork.jpg" alt="제주 흑돼지">
+            <div class="card-body">
+              <div class="fw-semibold mb-1">제주 흑돼지</div>
+              <div class="text-muted small mb-2">고소하고 부드러운 흑돼지 구이</div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 전복죽 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <a class="text-decoration-none text-reset d-block"
+           th:href="@{/foods(cat='전복죽')}">
+          <div class="card rounded-4 shadow-sm overflow-hidden hover-card h-100">
+            <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">죽</span>
+            <img class="card-img-top" src="/images/porridge.jpg" alt="전복죽">
+            <div class="card-body">
+              <div class="fw-semibold mb-1">전복죽</div>
+              <div class="text-muted small mb-2">신선한 전복으로 만든 영양 가득한 죽</div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 갈치조림 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <a class="text-decoration-none text-reset d-block"
+           th:href="@{/foods(cat='갈치조림')}">
+          <div class="card rounded-4 shadow-sm overflow-hidden hover-card h-100">
+            <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">해산물</span>
+            <img class="card-img-top" src="/images/galchi.jpg" alt="갈치조림">
+            <div class="card-body">
+              <div class="fw-semibold mb-1">갈치조림</div>
+              <div class="text-muted small mb-2">제주 은갈치로 만든 매콤달콤한 조림 요리</div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- 고기국수 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <a class="text-decoration-none text-reset d-block"
+           th:href="@{/foods(cat='고기국수')}">
+          <div class="card rounded-4 shadow-sm overflow-hidden hover-card h-100">
+            <span class="badge-soft position-absolute m-2 rounded-pill px-3 py-1">면</span>
+            <img class="card-img-top" src="/images/goginoodle.jpg" alt="고기국수">
+            <div class="card-body">
+              <div class="fw-semibold mb-1">고기국수</div>
+              <div class="text-muted small mb-2">고기 육수로 만든 제주도 고기국수</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="food-tags mt-3">
+      <span class="tag">🐟 청정 해산물</span>
+      <span class="tag">🥩 프리미엄 흑돼지</span>
+      <span class="tag">🥕 신선한 로컬 푸드</span>
+    </div>
+  </div>
+</section>
+
+<!-- 여행 꿀팁 (다크) -->
+<section id="tips" class="py-5 footer-dark">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="section-title text-white">여행 꿀팁</h2>
+      <p class="text-secondary">제주도 여행을 더 즐겁게 만들어줄 유용한 정보들</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 hover-lift">
+          <div class="fs-3 mb-2">📅</div>
+          <div class="fw-semibold mb-2">최적의 여행 시기</div>
+          <div class="text-muted small">봄(4~5월)과 가을(9~10월)이 가장 좋습니다.</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 hover-lift">
+          <div class="fs-3 mb-2">🌦️</div>
+          <div class="fw-semibold mb-2">날씨 체크</div>
+          <div class="text-muted small">제주도 날씨는 변덕스러워요. 우산/겉옷 준비!</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 hover-lift">
+          <div class="fs-3 mb-2">🚗</div>
+          <div class="fw-semibold mb-2">렌터카 추천</div>
+          <div class="text-muted small">대중교통이 제한적이라 렌터카가 편리합니다.</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="p-4 bg-white rounded-4 h-100 hover-lift">
+          <div class="fs-3 mb-2">ℹ️</div>
+          <div class="fw-semibold mb-2">미리 예약하기</div>
+          <div class="text-muted small">성수기는 숙소/차량이 빨리 마감됩니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-5 small text-white-50">© 제주도 여행 가이드</div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

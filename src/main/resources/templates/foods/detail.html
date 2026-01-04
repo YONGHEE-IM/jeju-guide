@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="content">
+  <div class="p-3 p-lg-4">
+    <div class="d-flex align-items-center gap-2 mb-2">
+      <h2 class="h5 fw-bold mb-0" th:text="${r.title}">맛집 이름</h2>
+      <span class="badge bg-light text-primary border rounded-pill" th:text="${r.category}">카테고리</span>
+    </div>
+
+    <!-- 2장 이상: 캐러셀 / 1장 이하는 대표 이미지 -->
+    <div th:if="${r.imageFiles != null and #lists.size(r.imageFiles) > 1}">
+      <div id="foodCarousel" class="carousel slide mb-3">
+        <div class="carousel-inner">
+          <div class="carousel-item" th:each="img, iStat : ${r.imageFiles}"
+               th:classappend="${iStat.index == 0} ? 'active'">
+            <img th:src="@{'/images/foods/' + ${img}}"
+                 class="d-block w-100 object-fit-cover rounded-3" style="max-height:420px"
+                 th:alt="${r.title}" />
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span><span class="visually-hidden">이전</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span><span class="visually-hidden">다음</span>
+        </button>
+        <div class="carousel-indicators" th:if="${#lists.size(r.imageFiles) > 1}">
+          <button type="button" data-bs-target="#foodCarousel" th:each="img,iStat : ${r.imageFiles}"
+                  th:attr="data-bs-slide-to=${iStat.index}" th:classappend="${iStat.index == 0} ? 'active'"></button>
+        </div>
+      </div>
+    </div>
+    <div th:if="${r.imageFiles == null || #lists.size(r.imageFiles) <= 1}" class="mb-3">
+      <img th:src="@{'/images/foods/' + ${r.imageFile}}"
+           class="w-100 object-fit-cover rounded-3" style="max-height:420px" th:alt="${r.title}" />
+    </div>
+
+    <div class="text-secondary small mb-2">
+      <i class="bi bi-geo-alt me-1"></i><span th:text="${r.location}">제주시</span>
+    </div>
+    <div class="mb-3" th:text="${r.description}">설명…</div>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="p-3 bg-body-secondary rounded-3">
+          <div class="fw-bold mb-1">영업시간</div>
+          <div th:text="${r.hours}">11:00–22:00</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="p-3 bg-body-secondary rounded-3">
+          <div class="fw-bold mb-1">대표메뉴</div>
+          <div th:text="${r.price}">1인 15,000원~</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

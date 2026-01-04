@@ -1,0 +1,263 @@
+/* ===== Board List ===== */
+.board-list .bl-head{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+  max-width:920px;margin:18px auto 8px;
+}
+.board-list .bl-title{margin:0 0 6px 0}
+.board-list .bl-sub{margin:0;color:#6b7280}
+.board-list .actions{display:flex;align-items:center;gap:10px}
+
+.board-list .btn-primary,
+.board-show .btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px;border-radius:12px;border:1px solid #e5e7eb;
+  background:#0b0d17;color:#fff;font-weight:700;text-decoration:none;
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
+  transition:transform .06s ease, filter .2s ease;
+}
+.board-list .btn-primary:hover,
+.board-show .btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+
+.board-list .bl-search{position:relative;max-width:920px;margin:12px auto 16px}
+.board-list .bl-search .input{
+  width:100%;height:44px;border-radius:12px;border:1px solid #e5e7eb;
+  background:#f3f4f6;padding:0 14px 0 38px;outline:none;font-size:14px
+}
+.board-list .bl-search .input::placeholder{color:#9ca3af}
+.board-list .bl-search .icon{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:16px;color:#6b7280;pointer-events:none
+}
+
+.board-list .bl-list{display:flex;flex-direction:column;gap:12px;max-width:920px;margin:0 auto}
+.board-list .card{
+  display:block;background:#fff;border:1px solid #e5e7eb;border-radius:16px;
+  padding:16px 18px;text-decoration:none;color:inherit;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+  transition:border-color .2s ease, box-shadow .2s ease, transform .06s ease;
+}
+.board-list .card:hover{border-color:#d1d5db;box-shadow:0 12px 28px rgba(0,0,0,.06);transform:translateY(-1px)}
+
+.board-list .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+.board-list .title{font-weight:700;font-size:17px;line-height:1.4;color:#111827}
+.board-list .meta{color:#6b7280;font-size:13px;margin-bottom:8px}
+.board-list .meta .dot{margin:0 6px;color:#9ca3af}
+
+.board-list .chips{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.board-list .chip,
+.board-show .chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:999px;background:#f3f4f6;color:#4b5563;
+  border:1px solid #e5e7eb;font-weight:600;font-size:12px
+}
+.board-list .chip .i,
+.board-show  .chip .i{font-size:14px;line-height:1}
+
+.board-list .excerpt{
+  color:#4b5563;font-size:14px;line-height:1.7;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden
+}
+
+.board-list .bl-foot{
+  max-width:920px;margin:14px auto 46px;display:flex;justify-content:center
+}
+.board-list .stat{
+  background:#eef2f7;border:1px solid #e5e7eb;color:#6b7280;
+  padding:10px 16px;border-radius:12px;font-size:14px
+}
+
+/* ===== Board Show ===== */
+.board-show .back{display:inline-block;margin:6px 0 10px 0;color:#6b7280;text-decoration:none}
+.board-show .card{
+  background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);max-width:920px;margin:0 auto 14px
+}
+.board-show .post .title{margin:0 0 6px 0;font-size:26px;font-weight:800;color:#111827}
+.board-show .meta{color:#6b7280;font-size:14px;margin-bottom:10px}
+.board-show .meta .dot{margin:0 6px;color:#9ca3af}
+.board-show .chips{display:flex;gap:8px;margin-bottom:14px}
+.board-show .content{color:#374151;line-height:1.9;font-size:16px}
+
+.board-show .comments .c-title{margin:0 0 12px 0;font-size:16px}
+.board-show .c-form{display:flex;gap:10px;margin-bottom:12px}
+.board-show .input-area{
+  flex:1;border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#f9fafb;
+  font-size:14px;outline:none
+}
+.board-show .muted{color:#9ca3af}
+.board-show .c-list{display:flex;flex-direction:column;gap:12px}
+.board-show .c-item{padding:12px;border-top:1px solid #f0f2f5}
+.board-show .c-meta{color:#6b7280;font-size:13px;margin-bottom:6px}
+.board-show .c-meta .dot{margin:0 6px;color:#9ca3af}
+.board-show .c-body{color:#374151;line-height:1.7}
+
+/* 모바일 보정 */
+@media (max-width:640px){
+  .board-list .bl-head{align-items:flex-start}
+  .board-list .row1{flex-direction:column;gap:8px}
+  .board-show .c-form{flex-direction:column;align-items:stretch}
+}
+
+/* ===== Board pages: 꽉 차게(넓게) 보이기 - 강제 오버라이드 ===== */
+.container.board-list,
+.container.board-show{
+  /* 프로젝트 공통 .container 보다 우선하도록 !important 사용 */
+  max-width: 1200px !important; /* 2번째 캡쳐 느낌: 1120~1280 권장 */
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* 자식 섹션들의 가로 제한 해제 → 부모 컨테이너 폭 100% 사용 */
+.board-list .bl-head,
+.board-list .bl-search,
+.board-list .bl-list,
+.board-list .bl-foot{ 
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.board-show .card{ 
+  max-width: 100%;
+}
+
+/* 텍스트/여백도 한 단계 키워서 시원하게 */
+.board-list .bl-title{ font-size: 28px; }
+.board-list .bl-sub{ font-size: 15px; }
+.board-list .title{ font-size: 20px; }     /* 카드 제목 */
+.board-list .excerpt{ font-size: 15px; line-height: 1.75; }
+.board-list .meta{ font-size: 14px; }
+
+.board-list .card{ padding: 22px 24px; }   /* 카드 안 여백 확대 */
+.board-list .bl-search .input{ height: 52px; font-size: 15px; }
+.board-list .chip, .board-show .chip{ padding: 5px 12px; font-size: 13px; }
+
+/* 아주 넓은 화면에서 더 키우고 싶을 때 */
+@media (min-width: 1360px){
+  .container.board-list,
+  .container.board-show{ max-width: 1280px !important; } /* 1200 → 1280 */
+}
+
+/* === 자유게시판 가로 폭 확장(목록 전용) === */
+
+/* 1) 페이지 컨테이너 자체를 넓힘 */
+.container.board-list{
+  max-width: 1200px !important;   /* 1120~1280 사이로 취향대로 조절 */
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* 2) 상단 헤더/검색/리스트/푸터 래퍼의 고정폭을 해제하고 100% 사용 */
+.board-list .bl-head,
+.board-list .bl-search,
+.board-list .bl-list,
+.board-list .bl-foot{
+  max-width: 100% !important;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 3) 카드가 줄어들지 않게, 항목/카드를 가로로 꽉 채움 */
+.board-list .bl-item{ width: 100%; }
+.board-list .bl-item .card{
+  width: 100%;
+  max-width: none;                /* 혹시 남아있는 카드 개별 max-width 제거 */
+}
+
+/* 4) 검색 인풋도 부모 폭에 맞추기 */
+.board-list .bl-search{ width: 100%; }
+.board-list .bl-search .input{
+  width: 100%;
+  max-width: none;
+}
+
+/* 5) 좀 더 크게 보이게 여백/글자도 살짝 업(선택) */
+.board-list .card{ padding: 22px 24px; }
+.board-list .title{ font-size: 20px; }
+.board-list .excerpt{ font-size: 15px; line-height: 1.75; }
+.board-list .meta{ font-size: 14px; }
+.board-list .chip{ padding: 5px 12px; font-size: 13px; }
+
+/* 6) 아주 큰 화면에서 더 넓게 쓰고 싶으면 여기 값만 조정 */
+@media (min-width: 1360px){
+  .container.board-list{ max-width: 1280px !important; } /* 1200 → 1280 등 */
+}
+
+.pagination { display:inline-flex; gap:10px; }
+.page-link, .page-num { padding:6px 10px; border-radius:8px; }
+.page-num.active { background:#1e293b; color:#fff; }
+.page-link.disabled { pointer-events:none; opacity:.4; }
+
+/* 게시글 카드 가로폭 확장 (데스크톱 전용) */
+@media (min-width: 1024px) {
+  /* 목록 컨테이너 자체 허용 폭을 넓히고 */
+  .board-list .bl-list { 
+    max-width: 1100px;      /* 기존보다 넓게 */
+    margin: 0 auto;         /* 중앙 정렬 유지 */
+  }
+  /* 카드 한 장의 최대 폭도 동일하게 확장 */
+  .board-list .post.card { 
+    width: 100%;
+    max-width: 1100px;      /* 필요하면 1200px 등으로 조정 가능 */
+  }
+}
+
+/* 게시판: 페이지네이션 가로 중앙 정렬 (디자인 그대로) */
+.board-list .pagination{
+  display: flex;              /* 가로 배치 */
+  justify-content: center;    /* 수평 중앙 */
+  align-items: center;
+  gap: 12px;                  /* 숫자 간 간격 */
+  margin: 24px auto 40px;     /* 좌우 auto → 가운데 */
+  max-width: 100%;
+}
+
+.board-list .pagination .page-link,
+.board-list .pagination .page-num{
+  display: inline-block;      /* 버튼 크기 유지 */
+}
+
+/* 상세 페이지 상단 액션: 수정/삭제 버튼 크기/모양 통일 */
+.board-show .actions a.btn-primary,
+.board-show .actions button.btn-primary {
+  display: inline-flex;         /* 텍스트를 수직/수평 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+  height: 36px;                 /* pill 버튼 기준 높이 */
+  padding: 0 14px;              /* 좌우 여백 동일 */
+  border-radius: 12px;          /* pill 라운드 */
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;               /* a의 라인높이 보정 */
+  border: 0;                    /* button 기본 테두리 제거 */
+  -webkit-appearance: none;     /* 브라우저 기본 버튼 스타일 제거 */
+  appearance: none;
+  text-decoration: none;        /* a 밑줄 제거(혹시 있을 경우) */
+}
+
+/* 댓글 영역: 수정/삭제/저장/취소 버튼 소형화 */
+.board-show .comments .c-actions .btn-primary,
+.board-show .comments .c-actions .btn-light,
+.board-show .comments .c-edit .btn-primary,
+.board-show .comments .c-edit .btn-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;        /* ← 더 낮게 */
+  padding: 0 10px;     /* ← 가로 여백 축소 */
+  font-size: 12px;     /* ← 글자 크기 축소 */
+  line-height: 1;
+  border-radius: 10px; /* ← pill 유지하되 더 타이트하게 */
+}
+
+/* 댓글 액션 간격도 살짝 줄이기 */
+.board-show .comments .c-actions,
+.board-show .comments .c-edit .btn-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>자유게시판</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="stylesheet" th:href="@{/css/board.css}">
+  <script defer th:src="@{/js/board.js}"></script>
+</head>
+<body>
+<div class="container board-list">
+  <a class="page-back" th:href="@{/}">← 홈으로 돌아가기</a>
+
+  <!-- 헤더 -->
+  <div class="bl-head">
+    <div class="titles">
+      <h2 class="bl-title">자유게시판</h2>
+      <p class="bl-sub">제주도 여행에 대한 이야기를 자유롭게 나눠보세요</p>
+    </div>
+    <div class="actions">
+      <a class="btn-primary" th:href="@{/boards/create}" sec:authorize="isAuthenticated()">
+        <span class="i">🖊</span> 글쓰기
+      </a>
+      <span sec:authorize="!isAuthenticated()" class="muted">로그인 후 글쓰기가 가능합니다.</span>
+    </div>
+  </div>
+
+  <!-- 검색 -->
+  <form th:action="@{/boards}" method="get" class="bl-search">
+    <span class="icon">🔎</span>
+    <input class="input" type="text" name="q" placeholder="게시글 검색..." th:value="${q}">
+  </form>
+
+  <!-- 목록 -->
+  <div class="bl-list">
+    <!-- 카드 전체를 감싸는 a 하나에만 th:each / th:href 지정 (닫는 </a>는 카드 끝) -->
+    <a class="post card" th:each="p : ${posts.content}" th:href="@{|/boards/${p.id}|}">
+      <div class="row1">
+        <div class="title" th:text="${p.title}">제목</div>
+        <div class="chips">
+          <span class="chip"><span class="i">👁</span><span th:text="${p.viewCount}">0</span></span>
+          <span class="chip"><span class="i">💬</span><span th:text="${#lists.size(p.comments)}">0</span></span>
+        </div>
+      </div>
+      <div class="meta">
+        <span th:text="${p.authorName}">작성자</span>
+        <span class="dot">·</span>
+        <span th:text="${#temporals.format(p.createdAt, 'yyyy. M. d.')}">날짜</span>
+      </div>
+      <div class="excerpt" th:text="${#strings.abbreviate(p.content, 220)}">
+        미리보기 텍스트
+      </div>
+    </a>
+  </div>
+
+  <!-- 페이지네이션 -->
+  <div class="pagination" th:if="${posts.totalPages > 1}" style="margin-top:16px; text-align:center;">
+    <a class="page-link" th:classappend="${posts.first} ? ' disabled'"
+       th:href="@{|/boards?page=${posts.number-1}${q != null ? '&q=' + q : ''}|}">이전</a>
+
+    <span th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+      <a class="page-num"
+         th:href="@{|/boards?page=${i}${q != null ? '&q=' + q : ''}|}"
+         th:text="${i + 1}"
+         th:classappend="${i == posts.number} ? ' active'">1</a>
+    </span>
+
+    <a class="page-link" th:classappend="${posts.last} ? ' disabled'"
+       th:href="@{|/boards?page=${posts.number+1}${q != null ? '&q=' + q : ''}|}">다음</a>
+  </div>
+
+</div>
+</body>
+</html>

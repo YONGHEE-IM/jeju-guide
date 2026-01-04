@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="content">
+  <div class="p-3 p-md-4">
+    <div class="d-flex align-items-center gap-2 mb-2">
+      <h5 class="mb-0 fw-bold" th:text="${d.title}">성산일출봉</h5>
+      <span class="badge bg-secondary-subtle text-secondary-emphasis" th:text="${d.category}">자연</span>
+    </div>
+
+    <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-3">
+      <img th:src="${d.imageUrl}" th:alt="${d.title}" class="w-100 h-100 object-fit-cover">
+    </div>
+
+    <div class="text-secondary mb-3">
+      <i class="bi bi-geo-alt me-1"></i><span th:text="${d.location}">서귀포시 성산읍</span>
+    </div>
+
+    <h6 class="fw-bold mb-2">상세 정보</h6>
+    <p class="text-muted" th:text="${d.detail}">긴 설명…</p>
+
+    <div class="row row-cols-1 row-cols-md-3 g-3 pt-3 border-top">
+      <div>
+        <div class="text-primary fw-semibold mb-1">운영시간</div>
+        <p class="text-muted small mb-0" th:text="${d.hours}">-</p>
+      </div>
+      <div>
+        <div class="text-primary fw-semibold mb-1">입장료</div>
+        <p class="text-muted small mb-0" th:text="${d.fee}">-</p>
+      </div>
+    </div>
+  </div>
+</th:block>
+</body>
+</html>
